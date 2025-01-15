@@ -30,9 +30,9 @@ function getPricesHTML(good) {
     let discountPrice = good.discount_price;
     let discount = Math.round((good.discount_price / good.actual_price - 1) * 100);
     let code = `
-                <p class="actual_price">${discountPrice}₽</p>
-                <p class="old_price">${actualPrice}₽</p>
-                <p class="discount">${discount}₽</p>
+                <p class="actual_price">${discountPrice}</p>
+                <p class="old_price">${actualPrice}</p>
+                <p class="discount">${discount}%</p>
                 `;
     return code;
 }
@@ -42,7 +42,7 @@ function createCard(good) {
     goodCard.classList.add('good-card');
         goodCard.setAttribute('data-kind', good.category);
         goodCard.innerHTML = `
-                    <img src='${good.image}' alt='${good.name}'>
+                    <img src='${good.image_url}' alt='${good.name}'>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
@@ -56,8 +56,9 @@ function placeCards() {
         
         let catalog = document.getElementById('goods');
         catalog.append(goodCard);
-        console.log(123);
     }
+    console.log(goods);
 }
 
 loadGoods();
+
