@@ -11,7 +11,7 @@ async function loadGoods() {
 }
 
 function getRatingText(good) {
-    let ratingValue = good.ratings;
+    let ratingValue = good.rating;
     let numberOfStars = Math.round(ratingValue);
     text = `<p>${ratingValue} `;
     for (let i = 1; i <= 5; i++) {
@@ -26,7 +26,7 @@ function getRatingText(good) {
 }
 
 function getPricesHTML(good) {
-    let actualPrice = good.actal_price;
+    let actualPrice = good.actual_price;
     let discountPrice = good.discount_price;
     let discount = Math.round((good.discount_price / good.actual_price - 1) * 100);
     let code = `
@@ -42,7 +42,7 @@ function createCard(good) {
     goodCard.classList.add('good-card');
         goodCard.setAttribute('data-kind', good.category);
         goodCard.innerHTML = `
-                    <img src='${good.image_url}' alt='${good.name}'>
+                    <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
