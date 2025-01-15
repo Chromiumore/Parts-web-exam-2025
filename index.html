@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
     <title>Главная страница</title>
 </head>
 <body>
     <header>
-        <img src="" alt="Logo">
-        <div>
+        <img src="resources/icons/shopping-cart.png" alt="Logo" id="logo-icon">
+        <div id="search">
             <input type="text">
             <button>Найти</button>
         </div>
-        <img src="" alt="shopping cart">
-        <img src="" alt="profile">
+        <div id="link-icons">
+            <img src="resources/icons/shopping-cart.png" alt="shopping cart">
+            <img src="resources/icons/user.png" alt="profile">
+        </div>
     </header>
     <main>
         <aside>
@@ -38,13 +41,15 @@
             </section>
             <section>
                 <h2>Стоимость</h2>
-                <div>
-                    <p>От</p>
-                    <input type="number">
-                </div>
-                <div>
-                    <p>До</p>
-                    <input type="number">
+                <div id="price-filters">
+                    <div class="price-filter">
+                        <p>От</p>
+                        <input type="number">
+                    </div>
+                    <div class="price-filter">
+                        <p>До</p>
+                        <input type="number">
+                    </div>
                 </div>
                 <div>
                     <input type="checkbox" name="only-discount">
