@@ -76,7 +76,12 @@ function calculatePrice() {
     for (let id in localStorage) {
         if (localStorage.hasOwnProperty(id)) {
             let good = goods.find(good => good.id == id);
-            res += good.discount_price;
+            if (good.discount_price) {
+                res += good.discount_price;
+            } else {
+                res += good.actual_price;
+            }
+            
         }
     }
     return res;
