@@ -52,12 +52,12 @@ tbody {
     border: 2px, solid, black;
 }
 
-.action-button {
+tbody button {
     height: 40px;
     width: 40px;
 }
 
-.action-button img {
+tbody img {
     height: 100%;
     width: 100%;
 }
@@ -90,4 +90,31 @@ footer {
     margin-top: auto;
     border: 1px black solid;
     text-align: center;
+}
+
+.window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: black 2px solid;
+    background-color: white;
+    padding: 50px 200px;
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+}
+
+.cover-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-section {
+    display: flex;
+}
+
+.prop-side, .values-side {
+    display: flex;
+    flex-direction: column;
 }

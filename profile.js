@@ -41,7 +41,6 @@ async function loadGoods() {
 
 function getGoodsNames(ids) {
     let names = [];
-    console.log(ids);
     for (let id of ids) {
         let good = goods.find(good => good.id == id);
         names.push(good.name);
@@ -64,7 +63,13 @@ function getFullCost(ids) {
 
 function getNamesText(ids) {
     let names = getGoodsNames(ids);
-    const amountOfSymbols = 15;
+    let namesAsText = names.join(',\n');
+    const amountOfSymbols = Math.min(15, namesAsText.length);
+    let text = namesAsText.slice(0, amountOfSymbols + 1);
+    if (namesAsText.length > 15) {
+        text += '...';
+    }
+    return text;
 }
 
 function updateTable() {
@@ -84,13 +89,15 @@ function updateTable() {
                             <td>${cost} ₽</td>
                             <td>${deliveryDate}</td>
                             <td>
-                                <div class="action-buttons" data-order=${order.id}>
-                                    <button class="action-button" id="show-button"><img src="resources/icons/eye.png" alt="show"></button>
-                                    <button class="action-button" id="edit-button"><img src="resources/icons/pencil.png" alt="edit"></button>
-                                    <button class="action-button" id="delete-button"><img src="resources/icons/trash.png" alt="delete"></button>
+                                <div class="action-buttons" data-order="${order.id}">
+                                    <button class="show-button"><img src="resources/icons/eye.png" alt="show"></button>
+                                    <button class="edit-button"><img src="resources/icons/pencil.png" alt="edit"></button>
+                                    <button class="delete-button"><img src="resources/icons/trash.png" alt="delete"></button>
                                  </div>
                             </td>
                         </tr>`
+        tbody.querySelector('.show-button').onclick = () => showOrder(tbody.querySelector('div').getAttribute('data-order'));
+
         document.querySelector('table').appendChild(tbody);
     }
 }
@@ -102,19 +109,24 @@ async function loadOrders() {
     const response = await fetch(url+path+key);
     const json = await response.json();
     orders = json;
+    console.log(orders);
     loadGoods();
 }
 
 function showOrder(id) {
+    console.log('showing order:', id);
     let window = document.createElement('div');
-    let order = orders.find(order => order.id == id);
+    window.classList.add('window');
 
-    let timeCreated = order.created_at.split('T')[0];
-    let dateCreated = order.created_at.split('T')[1];
+    let order = orders.find(order => order.id == id);
+    let timeCreatedElements = (order['created_at'].split('T')[0]).split('-');
+    let dateCreatedElements = (order['created_at'].split('T')[1]).split(':');
+    let timeCretated = timeCreatedElements[2] + '.' + timeCreatedElements[1] + '.' + timeCreatedElements[0];
+    let dateCreated = dateCreatedElements[0] + ':' + dateCreatedElements[1];
     window.innerHTML = `
                         <section class="cover-section">
                             <h3>Просмотр заказа</h3>
-                            <button><img src="resources/icons/cross.png" alt="close"></button>
+                            <button class="close-button"><img src="resources/icons/cross.png" alt="close"></button>
                         </section>
                         <section class="info-section">
                             <div class="prop-side">
@@ -130,19 +142,24 @@ function showOrder(id) {
                                 <p>Комментарий</p>
                             </div>
                             <div class="values-side">
-                                <p>Дата оформления</p>
-                                <p>Имя</p>
-                                <p>Номер телефона</p>
-                                <p>Email</p>
-                                <p>Адрес доставки</p>
-                                <p>Дата доставки</p>
-                                <p>Время доставки</p>
-                                <p>Состав заказа</p>
-                                <p>Стоимость</p>
-                                <p>Комментарий</p>
+                                <p>${dateCreated} ${timeCretated}</p>
+                                <p>${order.full_name}</p>
+                                <p>${order.phone}</p>
+                                <p>${order.email}</p>
+                                <p>${order.delivery_address}</p>
+                                <p>${order.delivery_date}</p>
+                                <p>${order.delivery_interval}</p>
+                                <p>${getNamesText(order.good_ids)}</p>
+                                <p>${getFullCost(order.good_ids)} ₽</p>
+                                <p>${order.comment}</p>
                             </div>
                         </section>
+                        <button class="ok-button">Ок</button>
                         `
+    document.body.appendChild(window);
+    document.querySelector('.close-button').onclick = () => (window.remove());
+    document.querySelector('.ok-button').onclick = () => (window.remove());
+
 }
 
 loadOrders();
