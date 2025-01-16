@@ -125,17 +125,12 @@ function placeCards() {
 }
 
 function resetForm() {
-
+    localStorage.clear();
+    let cards = document.getElementsByClassName('good-card');
+    for (let el of cards) {
+        el.remove();
+    }
 }
-
-// function checkIsCartEmpty() {
-//     for (let id in localStorage) {
-//         if (localStorage.hasOwnProperty(id)) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
 
 async function submitForm() {
     event.preventDefault();
@@ -151,34 +146,42 @@ async function submitForm() {
 
     let formData = new FormData();
 
+    console.log(document.getElementById('name-input').value, typeof document.getElementById('name-input').value);
     formData.append('full_name', document.getElementById('name-input').value);
+
+    console.log(document.getElementById('email-input').value, typeof document.getElementById('email-input').value);
     formData.append('email', document.getElementById('email-input').value);
-    // let subscribe;
-    // if (document.getElementById('news-checkbox').value) {
-    //     subscribe = 1;
-    // } else {
-    //     subscribe = 0;
-    // }
-    // formData.append('subscribe', subscribe);
+    
+    if (document.getElementById('news-checkbox').value) {
+        formData.append('subscribe', 1);
+    } else {
+        formData.append('subscribe', 0);
+    }
+    
+    console.log(document.getElementById('phone-input').value, typeof document.getElementById('phone-input').value);
     formData.append('phone', document.getElementById('phone-input').value);
+
+    console.log(document.getElementById('address-input').value, typeof document.getElementById('address-input').value);
     formData.append('delivery_address', document.getElementById('address-input').value);
+
     let dateSegments = document.getElementById('date').value.split('-');
     let dateFormat = dateSegments[2] + '.' + dateSegments[1] + '.' + dateSegments[0]; 
+    
     formData.append('delivery_date', dateFormat);
     formData.append('delivery_interval', document.getElementById('delivery-interval').value);
 
-    // formData.append('comment', document.getElementById('comment').value);
+    formData.append('comment', document.getElementById('comment').value);
 
     formData.append('good_ids', good_ids);
 
     let path = '/exam-2024-1/api/orders?api_key=';
     
-    for (let i of formData.values()) {
-        console.log(i, typeof i);
-    }
+    // for (let i of formData.values()) {
+    //     console.log(i, typeof i);
+    // }
 
     try {
-        const response = await fetch(url + path + key, {
+        const response = await fetch('https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders?api_key=e0f88639-908c-4bd5-9568-97250c9e9938', {
             method: 'POST',
             body: formData
         });
