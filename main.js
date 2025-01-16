@@ -1,5 +1,33 @@
 var goods = [];
 
+function clearShoppingCard() {
+    localStorage.clear();
+}
+
+function closeMessagePanel() {
+    document.querySelector('.message-panel').remove();
+    clearShoppingCard();
+}
+
+function createMessagePanel() {
+    let messagePanel = document.createElement('div');
+    messagePanel.classList.add('message-panel');
+    let message = document.createElement('p');
+    message.classList.add('message');
+    messagePanel.appendChild(message);
+    let button = document.createElement('button');
+    button.classList.add('close-button');
+    let cross = document.createElement('img');
+    cross.setAttribute('src', 'resources/icons/cross.png');
+    cross.setAttribute('alt', 'cross');
+    button.appendChild(cross);
+    button.onclick = () => (closeMessagePanel());
+    messagePanel.appendChild(button);
+    return messagePanel;
+}
+
+var messagePanel = createMessagePanel();
+
 async function loadGoods() {
     let key = 'e0f88639-908c-4bd5-9568-97250c9e9938';
     let url = 'https://edu.std-900.ist.mospolytech.ru';
@@ -37,16 +65,39 @@ function getPricesHTML(good) {
     return code;
 }
 
+function calculatePrice() {
+    let res = 0;
+    for (let id in localStorage) {
+        if (localStorage.hasOwnProperty(id)) {
+            let good = goods.find(good => good.id == id);
+            res += good.discount_price;
+        }
+    }
+    return res;
+}
+
+function updateMessage() {
+    messagePanel.querySelector('.message').textContent = calculatePrice();
+    document.querySelector('main').insertBefore(messagePanel, document.querySelector('main').firstChild);
+}
+
+function addGoodToShoppingCard(good) {
+    localStorage.setItem(good.id, true);
+    updateMessage();
+}
+
 function createCard(good) {
     let goodCard = document.createElement('div');
-    goodCard.classList.add('good-card');
-        goodCard.setAttribute('data-kind', good.category);
-        goodCard.innerHTML = `
+    goodCard.classList.add('good-card');     
+    goodCard.setAttribute('data-kind', good.category);
+    goodCard.setAttribute('id', good)
+    goodCard.innerHTML = `
                     <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
                     <button>Добавить</button>`;
+    goodCard.querySelector('button').onclick = () => addGoodToShoppingCard(good);
     return goodCard;
 }
 
@@ -61,4 +112,3 @@ function placeCards() {
 }
 
 loadGoods();
-
