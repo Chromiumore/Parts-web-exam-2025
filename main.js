@@ -1,12 +1,12 @@
 var goods = [];
 
-function clearShoppingCard() {
+function clearShoppingCart() {
     localStorage.clear();
 }
 
 function closeMessagePanel() {
     document.querySelector('.message-panel').remove();
-    clearShoppingCard();
+    clearShoppingCart();
 }
 
 function createMessagePanel() {
@@ -87,7 +87,7 @@ function updateMessage() {
     document.querySelector('main').insertBefore(messagePanel, document.querySelector('main').firstChild);
 }
 
-function addGoodToShoppingCard(good) {
+function addGoodToShoppingCart(good) {
     localStorage.setItem(good.id, true);
     updateMessage();
 }
@@ -103,7 +103,7 @@ function createCard(good) {
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
                     <button>Добавить</button>`;
-    goodCard.querySelector('button').onclick = () => addGoodToShoppingCard(good);
+    goodCard.querySelector('button').onclick = () => addGoodToShoppingCart(good);
     return goodCard;
 }
 

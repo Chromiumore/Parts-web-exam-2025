@@ -1,12 +1,12 @@
 var goods = [];
 
-function clearShoppingCard() {
+function clearShoppingCart() {
     localStorage.clear();
 }
 
 function closeMessagePanel() {
     document.querySelector('.message-panel').remove();
-    clearShoppingCard();
+    clearShoppingCart();
 }
 
 function createMessagePanel() {
@@ -96,7 +96,7 @@ function removeCard(id) {
     }
 }
 
-function removeGoodFromShoppingCard(good) {
+function removeGoodFromShoppingCart(good) {
     removeCard(good.id);
     localStorage.removeItem(good.id);
     updateMessage();
@@ -113,7 +113,7 @@ function createCard(good) {
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
                     <button>Удалить</button>`;
-    goodCard.querySelector('button').onclick = () => removeGoodFromShoppingCard(good);
+    goodCard.querySelector('button').onclick = () => removeGoodFromShoppingCart(good);
     return goodCard;
 }
 
