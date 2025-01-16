@@ -15,6 +15,7 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
     border-bottom: 1px gray solid;
+    margin: 0 50px;
 }
 
 #logo-icon {
@@ -36,8 +37,8 @@ header {
 main {
     display: flex;
     flex-direction: column;
-    height: 700px;
     align-items: stretch;
+    margin: 0 50px;
 }
 
 .message-panel {

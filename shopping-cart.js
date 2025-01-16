@@ -1,8 +1,7 @@
 var goods = [];
 
-function clearShoppingCart() {
-    localStorage.clear();
-}
+var key = 'e0f88639-908c-4bd5-9568-97250c9e9938';
+var url = 'https://edu.std-900.ist.mospolytech.ru';
 
 function closeMessagePanel() {
     document.querySelector('.message-panel').remove();
@@ -28,9 +27,7 @@ function createMessagePanel() {
 var messagePanel = createMessagePanel();
 
 async function loadGoods() {
-    let key = 'e0f88639-908c-4bd5-9568-97250c9e9938';
-    let url = 'https://edu.std-900.ist.mospolytech.ru';
-    let path = '/exam-2024-1/api/goods?api_key='
+    let path = '/exam-2024-1/api/goods?api_key=';
     const response = await fetch(url+path+key);
     const json = await response.json();
     goods = json;
@@ -131,8 +128,70 @@ function resetForm() {
 
 }
 
-function submitForm() {
+// function checkIsCartEmpty() {
+//     for (let id in localStorage) {
+//         if (localStorage.hasOwnProperty(id)) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
+async function submitForm() {
+    event.preventDefault();
+    
+    let good_ids = new Array();
+    for (let id in localStorage) {
+        if (localStorage.hasOwnProperty(id)) {
+            good_ids.push(id);
+        }
+    }
+
+    if (good_ids.length === 0) return;
+
+    let formData = new FormData();
+
+    formData.append('full_name', document.getElementById('name-input').value);
+    formData.append('email', document.getElementById('email-input').value);
+    // let subscribe;
+    // if (document.getElementById('news-checkbox').value) {
+    //     subscribe = 1;
+    // } else {
+    //     subscribe = 0;
+    // }
+    // formData.append('subscribe', subscribe);
+    formData.append('phone', document.getElementById('phone-input').value);
+    formData.append('delivery_address', document.getElementById('address-input').value);
+    let dateSegments = document.getElementById('date').value.split('-');
+    let dateFormat = dateSegments[2] + '.' + dateSegments[1] + '.' + dateSegments[0]; 
+    formData.append('delivery_date', dateFormat);
+    formData.append('delivery_interval', document.getElementById('delivery-interval').value);
+
+    // formData.append('comment', document.getElementById('comment').value);
+
+    formData.append('good_ids', good_ids);
+
+    let path = '/exam-2024-1/api/orders?api_key=';
+    
+    for (let i of formData.values()) {
+        console.log(i, typeof i);
+    }
+
+    try {
+        const response = await fetch(url + path + key, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Заказ принят');
+            localStorage.clear();
+        } else {
+            alert('Ошибка на сервере!');
+        }   
+    } catch {
+        alert('Ошибка! ' + error.message);
+    }
 }
 
 document.getElementById('submit').onclick = () => submitForm();
