@@ -47,10 +47,15 @@
                     <input type="text" id="address-input" name="address" required>
 
                     <label for="date">Дата доставки</label>
-                    <input type="date" name="date" id="date">
+                    <input type="date" name="date" id="date" required>
                     
-                    <label for="time">Временной интервал доставки</label>
-                    <input type="time" name="time" id="time" min="18:00" max="22:00" step="600">
+                    <label for="delivery-interval">Временной интервал доставки</label>
+                    <select name="delivery-interval" id="delivery-interval">
+                        <option value="08:00-12:00">08:00-12:00</option>
+                        <option value="12:00-14:00">12:00-14:00</option>
+                        <option value="14:00-18:00">14:00-18:00</option>
+                        <option value="18:00-22:00">18:00-22:00</option>
+                    </select>
                     <p class="details"></p>
                     <div class="form-buttons">
                         <button type="reset" id="reset">Сбросить</button>

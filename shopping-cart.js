@@ -6,7 +6,6 @@ function clearShoppingCart() {
 
 function closeMessagePanel() {
     document.querySelector('.message-panel').remove();
-    clearShoppingCart();
 }
 
 function createMessagePanel() {
@@ -127,5 +126,16 @@ function placeCards() {
         }
     }
 }
+
+function resetForm() {
+
+}
+
+function submitForm() {
+
+}
+
+document.getElementById('submit').onclick = () => submitForm();
+document.getElementById('reset').onclick = () => resetForm();
 
 loadGoods();

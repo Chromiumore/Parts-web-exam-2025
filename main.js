@@ -1,12 +1,7 @@
 var goods = [];
 
-function clearShoppingCart() {
-    localStorage.clear();
-}
-
 function closeMessagePanel() {
     document.querySelector('.message-panel').remove();
-    clearShoppingCart();
 }
 
 function createMessagePanel() {
