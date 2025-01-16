@@ -52,6 +52,7 @@ function getRatingText(good) {
     text += '</p>';
     return text;
 }
+
 function getPricesHTML(good) {
     let actualPrice = good.actual_price;
     let discountPrice = good.discount_price;
@@ -64,12 +65,11 @@ function getPricesHTML(good) {
                 <p class="discount">${discount}%</p>
                 `;
     } else {
-        code = `<p class="old_price">${actualPrice}</p>`;
+        code = `<p class="old_price">${discountPrice}</p>`;
     }
                 
     return code;
 }
-
 
 function calculatePrice() {
     let res = 0;

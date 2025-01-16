@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px gray solid;
+}
+
+#logo-icon {
+    height: 50px;
+}
+
+#logo-icon img {
+    height: 100%;
+}
+
+#link-icons {
+    height: 50px;
+}
+
+#link-icons img {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+.message-panel {
+    display: flex;
+    justify-content: space-between;
+    border: 1px black solid;
+    background-color: lightgreen;
+    height: 50px;
+    padding-left: 20px;
+}
+
+.message-panel button{
+    height: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.message-panel button:hover{
+    cursor: pointer;
+}
+
+.message-panel img {
+    height: 100%;
+}
+
+#goods {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: stretch;
+}
+
+.good-card {
+    display: flex;
+    flex-direction: column;
+    border: 2px transparent solid;
+    cursor: pointer;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    background-color: white;
+}
+
+.good-image {
+    width: 100%;
+}
+
+.good-image img {
+    height: 100%;
+}
+
+.prices {
+    display: flex;
+    justify-content: space-around;
+}
+
+footer {
+    margin: 0;
+    margin-top: auto;
+    border: 1px black solid;
+}
