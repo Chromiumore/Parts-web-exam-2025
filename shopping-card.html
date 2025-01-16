@@ -8,24 +8,59 @@
 </head>
 <body>
     <header>
-        <img src="resources/icons/shopping-cart.png" alt="Logo" id="logo-icon">
+        <img src="resources/icons/logo.png" alt="Logo" id="logo-icon">
         <div id="link-icons">
-            <img src="resources/icons/shopping-cart.png" alt="shopping cart">
+            <a href="index.html"><img src="resources/icons/menu.png" alt="catalog"></a>
             <img src="resources/icons/user.png" alt="profile">
         </div>
     </header>
     <main>
         <section id="goods">
-
+            <h2>Корзина</h2>
         </section>
-        <section>
-            <form action="">
+        <form action="" method="post">
+            <h2>Оформление заказа</h2>
+            <div class="form-container">
+                <section class="form-section">
 
-            </form>
-        </section>
+                    <label for="name-input">Имя</label>
+                    <input type="text" id="name-input" name="client-name" required>
+
+                    <label for="email-input">Email</label>
+                    <input type="email" id="email-input" name="email" required>
+
+                    <label for="phone-input">Номер телефона</label>
+                    <input type="text" id="phone-input" name="phone" required>
+ 
+                    <div>
+                        <input type="checkbox" id="news-checkbox" name="get-news" checked>
+                        <label for="news-checkbox">Подписаться на рассылку</label>
+                    </div>
+
+                    <label for="comment">Комментарий к заказу</label>
+                    <textarea id="comment" name="comment"></textarea>  
+                </section>
+                <section class="form-section">
+
+                    <label for="address-input">Адрес доставки</label>
+                    <input type="text" id="address-input" name="address" required>
+
+                    <label for="date">Дата доставки</label>
+                    <input type="date" name="date" id="date">
+                    
+                    <label for="time">Временной интервал доставки</label>
+                    <input type="time" name="time" id="time" min="18:00" max="22:00" step="600">
+                    <p class="details"></p>
+                    <div class="form-buttons">
+                        <button type="reset" id="reset">Сбросить</button>
+                        <button type="submit" id="submit">Отправить</button>
+                    </div> 
+                </section>
+            </div>
+        </form>
     </main>
     <footer>
-        <p>© T-Electronics</p>
+        <p>© 2025 T-Electronics</p>
     </footer>
     <script src="shopping-card.js"></script>
 </body>

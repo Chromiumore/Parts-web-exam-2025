@@ -96,7 +96,7 @@ function createCard(good) {
     let goodCard = document.createElement('div');
     goodCard.classList.add('good-card');     
     goodCard.setAttribute('data-kind', good.category);
-    goodCard.setAttribute('id', good)
+    goodCard.setAttribute('data-good', good.id);
     goodCard.innerHTML = `
                     <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
                     <p class="name">${good.name}</p>

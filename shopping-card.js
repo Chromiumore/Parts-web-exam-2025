@@ -65,7 +65,7 @@ function getPricesHTML(good) {
                 <p class="discount">${discount}%</p>
                 `;
     } else {
-        code = `<p class="old_price">${discountPrice}</p>`;
+        code = `<p class="old_price">${actualPrice}</p>`;
     }
                 
     return code;
@@ -87,8 +87,18 @@ function updateMessage() {
     document.querySelector('main').insertBefore(messagePanel, document.querySelector('main').firstChild);
 }
 
-function addGoodToShoppingCard(good) {
-    localStorage.setItem(good.id, true);
+function removeCard(id) {
+    for (let card of document.getElementsByClassName('good-card')) {
+         if (card.getAttribute('data-good') == id) {
+            card.remove();
+            break
+         }
+    }
+}
+
+function removeGoodFromShoppingCard(good) {
+    removeCard(good.id);
+    localStorage.removeItem(good.id);
     updateMessage();
 }
 
@@ -96,25 +106,26 @@ function createCard(good) {
     let goodCard = document.createElement('div');
     goodCard.classList.add('good-card');     
     goodCard.setAttribute('data-kind', good.category);
-    goodCard.setAttribute('id', good)
+    goodCard.setAttribute('data-good', good.id);
     goodCard.innerHTML = `
                     <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
-                    <button>Добавить</button>`;
-    goodCard.querySelector('button').onclick = () => addGoodToShoppingCard(good);
+                    <button>Удалить</button>`;
+    goodCard.querySelector('button').onclick = () => removeGoodFromShoppingCard(good);
     return goodCard;
 }
 
 function placeCards() {
-    for (let good of goods) {
-        let goodCard = createCard(good);
-        
-        let catalog = document.getElementById('goods');
-        catalog.append(goodCard);
+    for (let id in localStorage) {
+        if (localStorage.hasOwnProperty(id)) {
+            let good = goods.find(good => good.id == id);
+            let goodCard = createCard(good);
+            let catalog = document.getElementById('goods');
+            catalog.append(goodCard);
+        }
     }
-    console.log(goods);
 }
 
 loadGoods();

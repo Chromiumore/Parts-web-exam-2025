@@ -36,7 +36,10 @@ header {
 main {
     display: flex;
     flex-direction: column;
+    height: 700px;
+    align-items: stretch;
 }
+
 .message-panel {
     display: flex;
     justify-content: space-between;
@@ -89,8 +92,61 @@ main {
     justify-content: space-around;
 }
 
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: stretch;
+    justify-content: space-around;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 150px;
+}
+
+.form-section h3 {
+    margin-bottom: 25px;
+}
+
+.form-section label {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.form-section input {
+    margin-top: 5px;
+    width: 80%;
+}
+
+.form-section select {
+    margin-top: 10px;
+    height: 35px;
+    width: 80%;
+}
+
+fieldset {
+    border: 0;
+}
+
+.form-section div input {
+    height: auto;
+    width: auto;
+}
+
+.form-section input{
+    height: 35px;
+}
+
+.form-section textarea {
+    margin-top: 5px;
+    height: 30%;
+    width: 80%;
+}
+
 footer {
     margin: 0;
     margin-top: auto;
     border: 1px black solid;
+    text-align: center;
 }
