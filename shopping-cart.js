@@ -78,8 +78,42 @@ function calculatePrice() {
     return res;
 }
 
+function calculateDelivery() {
+    let interval = document.querySelector('#delivery-interval').value;
+    let date = new Date(document.querySelector('#date').value);
+    if (interval === '18:00-22:00') {
+        if (date.toLocaleString('en-US', {weekday: 'long'}) === 'Saturday' || date.toLocaleString('en-US', {weekday: 'long'}) === 'Sunday') {
+            return 500;
+        } else {
+            return 400;
+        }
+    } else {
+        return 200;
+    }
+}
+
+function checkIsCartEmpty() {
+    for (let el in localStorage) {
+        if (localStorage.hasOwnProperty(el)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function updateTotalCost() {
+    if (checkIsCartEmpty()) {
+        document.querySelector('.final-cost').textContent = `Карзина пуста`;
+        document.querySelector('.details').textContent = '';
+    }
+    else {
+        document.querySelector('.final-cost').textContent = `Итоговая стоимость: ${calculatePrice() + calculateDelivery()} `;
+        document.querySelector('.details').textContent = `(стоимость доставки ${calculateDelivery()} )`;
+    }
+}
+
 function updateMessage() {
-    messagePanel.querySelector('.message').textContent = calculatePrice();
+    messagePanel.querySelector('.message').textContent = 'Товар удалён из корзины';
     document.querySelector('main').insertBefore(messagePanel, document.querySelector('main').firstChild);
 }
 
@@ -96,6 +130,7 @@ function removeGoodFromShoppingCart(good) {
     removeCard(good.id);
     localStorage.removeItem(good.id);
     updateMessage();
+    updateTotalCost();
 }
 
 function createCard(good) {
@@ -122,6 +157,7 @@ function placeCards() {
             catalog.append(goodCard);
         }
     }
+    updateTotalCost();
 }
 
 function resetForm() {
@@ -165,10 +201,6 @@ async function submitForm() {
     formData.append('good_ids', good_ids);
 
     let path = '/exam-2024-1/api/orders?api_key=';
-    
-    // for (let i of formData.values()) {
-    //     console.log(i, typeof i);
-    // }
 
     try {
         const response = await fetch('https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders?api_key=e0f88639-908c-4bd5-9568-97250c9e9938', {
@@ -189,5 +221,8 @@ async function submitForm() {
 
 document.getElementById('submit').onclick = () => submitForm();
 document.getElementById('reset').onclick = () => resetForm();
+
+document.querySelector('#date').addEventListener('input', updateTotalCost);
+document.querySelector('#delivery-interval').onchange = () => updateTotalCost();
 
 loadGoods();
