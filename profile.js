@@ -98,6 +98,7 @@ function updateTable() {
                         </tr>`
         tbody.querySelector('.show-button').onclick = () => showOrder(tbody.querySelector('div').getAttribute('data-order'));
         tbody.querySelector('.edit-button').onclick = () => editOrder(tbody.querySelector('div').getAttribute('data-order'));
+        tbody.querySelector('.delete-button').onclick = () => deleteOrder(tbody.querySelector('div').getAttribute('data-order'));
 
         document.querySelector('table').appendChild(tbody);
     }
@@ -117,7 +118,7 @@ async function loadOrders() {
 }
 
 function showOrder(id) {
-    console.log('showing order:', id);
+    closeWindow();
     let window = document.createElement('div');
     window.classList.add('window');
 
@@ -166,7 +167,9 @@ function showOrder(id) {
 }
 
 function closeWindow() {
-    document.querySelector('.window').remove();
+    if (document.querySelector('.window') != null) {
+        document.querySelector('.window').remove();
+    }
 }
 
 function resetTable() {
@@ -223,6 +226,7 @@ async function saveChanges(id) {
 }
 
 function editOrder(id) {
+    closeWindow();
     let window = document.createElement('div');
     window.classList.add('window');
 
@@ -274,6 +278,51 @@ function editOrder(id) {
     document.querySelector('.close-button').onclick = () => (window.remove());
     document.querySelector('.cancel-button').onclick = () => (window.remove());
     document.querySelector('.save-button').onclick = () => (saveChanges(id));
+}
+
+function deleteOrder(id) {
+    closeWindow();
+    let window = document.createElement('div');
+    window.classList.add('window');
+
+    window.innerHTML = `
+                        <section class="cover-section">
+                            <h3>Удаление заказа</h3>
+                            <button class="close-button"><img src="resources/icons/cross.png" alt="close"></button>
+                        </section>
+                        <section class="info-section">
+                            <div class="delete-message">
+                            <p>Вы уверены, что хотите удалить заказ?</p>
+                            </div>
+                            <div class="delete-buttons">
+                                <button class="cancel-button">Нет</button>
+                                <button class="confirm-button">Да</button>
+                            </div>
+                        </section>
+                        `
+    document.body.appendChild(window);
+    document.querySelector('.close-button').onclick = () => (window.remove());
+    document.querySelector('.cancel-button').onclick = () => (window.remove());
+    document.querySelector('.confirm-button').onclick = () => (removeOrder(id));
+}
+
+async function removeOrder(id) {
+    try {
+        const response = await fetch(`https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders/${id}?api_key=e0f88639-908c-4bd5-9568-97250c9e9938`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            alert('Заказ удалён');
+            closeWindow();
+            resetTable();
+            loadOrders()
+        } else {
+            alert('Ошибка на сервере!');
+        }   
+    } catch {
+        alert('Ошибка! ' + error.message);
+    }
 }
 
 loadOrders();
