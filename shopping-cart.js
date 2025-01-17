@@ -211,6 +211,7 @@ async function submitForm() {
         if (response.ok) {
             alert('Заказ принят');
             localStorage.clear();
+            resetForm();
         } else {
             alert('Ошибка на сервере!');
         }   
