@@ -15,7 +15,7 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
     border-bottom: 1px gray solid;
-    margin: 0 50px;
+    margin: px;
 }
 
 #logo-icon {
@@ -38,7 +38,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    margin: 0 50px;
+    margin: 0;
+    padding: 0 30px;
 }
 
 .message-panel {
@@ -67,7 +68,7 @@ main {
 #goods {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 30px;
     justify-items: stretch;
 }
 
@@ -78,6 +79,17 @@ main {
     cursor: pointer;
     filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
     background-color: white;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form-buttons button {
+    width: 40%;
+    height: 30px;
 }
 
 .good-image {
@@ -103,7 +115,8 @@ main {
 .form-section {
     display: flex;
     flex-direction: column;
-    padding: 10px 150px;
+    padding: 10px 100px;
+    height: 500px;
 }
 
 .form-section h3 {
@@ -135,14 +148,32 @@ fieldset {
     width: auto;
 }
 
-.form-section input{
+.form-section input, .form-section select{
     height: 35px;
+    width: 100%;
 }
 
 .form-section textarea {
     margin-top: 5px;
     height: 30%;
     width: 80%;
+}
+
+button {
+    background-color: lightslategrey;
+    color: white;
+    border: 0.5px black solid;
+    border-radius: 5px;
+}
+
+.final-cost {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.details {
+    margin-top: 0;
+    text-align: center;
 }
 
 footer {
