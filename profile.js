@@ -97,12 +97,15 @@ function updateTable() {
                             </td>
                         </tr>`
         tbody.querySelector('.show-button').onclick = () => showOrder(tbody.querySelector('div').getAttribute('data-order'));
+        tbody.querySelector('.edit-button').onclick = () => editOrder(tbody.querySelector('div').getAttribute('data-order'));
 
         document.querySelector('table').appendChild(tbody);
     }
 }
 
 async function loadOrders() {
+    orders = [];
+    goods = [];
     let key = 'e0f88639-908c-4bd5-9568-97250c9e9938';
     let url = 'https://edu.std-900.ist.mospolytech.ru';
     let path = '/exam-2024-1/api/orders?api_key='
@@ -160,6 +163,117 @@ function showOrder(id) {
     document.querySelector('.close-button').onclick = () => (window.remove());
     document.querySelector('.ok-button').onclick = () => (window.remove());
 
+}
+
+function closeWindow() {
+    document.querySelector('.window').remove();
+}
+
+function resetTable() {
+    let orders = document.querySelectorAll('tbody');
+    orders.forEach(el => el.remove());
+}
+
+async function saveChanges(id) {
+    let formData = new FormData();
+    
+    let fullName = document.getElementById('name-input').value;
+    if (fullName) {formData.append('full_name', fullName);}
+    
+    let email = document.getElementById('email-input').value;
+    if (email) {formData.append('email', email);}
+    
+    let phone = document.getElementById('phone-input').value;
+    if (phone) {formData.append('phone', phone);}
+    
+    let deliveryAddress = document.getElementById('address-input').value;
+    if (deliveryAddress) {formData.append('delivery_address', deliveryAddress);}
+    
+    if (document.getElementById('date').value) {
+        let dateSegments = document.getElementById('date').value.split('-');
+        let dateFormat = dateSegments[2] + '.' + dateSegments[1] + '.' + dateSegments[0]; 
+        formData.append('delivery_date', dateFormat);
+    }
+    
+    let deliveryInterval = document.getElementById('delivery-interval').value;
+    if (deliveryInterval) {formData.append('delivery_interval', deliveryInterval);}
+    
+    let comment = document.getElementById('comment').value;
+    if (comment) {formData.append('comment', comment);}
+
+    let path = '/exam-2024-1/api/orders?api_key=';
+
+    try {
+        const response = await fetch(`https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders/${id}?api_key=e0f88639-908c-4bd5-9568-97250c9e9938`, {
+            method: 'PUT',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Заказ отредактирован');
+            closeWindow();
+            resetTable();
+            loadOrders()
+        } else {
+            alert('Ошибка на сервере!');
+        }   
+    } catch {
+        alert('Ошибка! ' + error.message);
+    }
+}
+
+function editOrder(id) {
+    let window = document.createElement('div');
+    window.classList.add('window');
+
+    let order = orders.find(order => order.id == id);
+    let timeCreatedElements = (order['created_at'].split('T')[0]).split('-');
+    let dateCreatedElements = (order['created_at'].split('T')[1]).split(':');
+    let timeCretated = timeCreatedElements[2] + '.' + timeCreatedElements[1] + '.' + timeCreatedElements[0];
+    let dateCreated = dateCreatedElements[0] + ':' + dateCreatedElements[1];
+    window.innerHTML = `
+                        <section class="cover-section">
+                            <h3>Просмотр заказа</h3>
+                            <button class="close-button"><img src="resources/icons/cross.png" alt="close"></button>
+                        </section>
+                        <section class="info-section">
+                            <div class="prop-side">
+                                <p>Дата оформления</p>
+                                <label for="name-input">Имя</label>
+                                <label for="phone-input">Номер телефона</label>
+                                <label for="email-input">Email</label>
+                                <label for="address-input">Адрес доставки</label>
+                                <label for="date">Дата доставки</label>
+                                <label for="delivery-interval">Временной интервал доставки</label>  
+                                <p>Состав заказа</p>
+                                <p>Стоимость</p>
+                                <label for="comment">Комментарий к заказу</label>
+                            </div>
+                            <div class="values-side">
+                                <p>${dateCreated} ${timeCretated}</p>
+                                <input type="text" id="name-input" name="client-name">
+                                <input type="text" id="phone-input" name="phone">
+                                <input type="email" id="email-input" name="email">
+                                <input type="text" id="address-input" name="address">
+                                <input type="date" name="date" id="date">
+                                <select name="delivery-interval" id="delivery-interval">
+                                    <option value="08:00-12:00">08:00-12:00</option>
+                                    <option value="12:00-14:00">12:00-14:00</option>
+                                    <option value="14:00-18:00">14:00-18:00</option>
+                                    <option value="18:00-22:00">18:00-22:00</option>
+                                </select>
+                                <p>${getNamesText(order.good_ids)}</p>
+                                <p>${getFullCost(order.good_ids)} ₽</p> 
+                                <input type="text" id="comment" name="comment">
+                            </div>
+                        </section>
+                        <button class="cancel-button">Отмена</button>
+                        <button class="save-button">Сохранить</button>
+                        `
+    document.body.appendChild(window);
+    document.querySelector('.close-button').onclick = () => (window.remove());
+    document.querySelector('.cancel-button').onclick = () => (window.remove());
+    document.querySelector('.save-button').onclick = () => (saveChanges(id));
 }
 
 loadOrders();

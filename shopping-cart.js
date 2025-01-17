@@ -146,10 +146,7 @@ async function submitForm() {
 
     let formData = new FormData();
 
-    console.log(document.getElementById('name-input').value, typeof document.getElementById('name-input').value);
     formData.append('full_name', document.getElementById('name-input').value);
-
-    console.log(document.getElementById('email-input').value, typeof document.getElementById('email-input').value);
     formData.append('email', document.getElementById('email-input').value);
     
     if (document.getElementById('news-checkbox').value) {
@@ -157,11 +154,7 @@ async function submitForm() {
     } else {
         formData.append('subscribe', 0);
     }
-    
-    console.log(document.getElementById('phone-input').value, typeof document.getElementById('phone-input').value);
     formData.append('phone', document.getElementById('phone-input').value);
-
-    console.log(document.getElementById('address-input').value, typeof document.getElementById('address-input').value);
     formData.append('delivery_address', document.getElementById('address-input').value);
 
     let dateSegments = document.getElementById('date').value.split('-');
