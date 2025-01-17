@@ -52,7 +52,7 @@
                             <input type="number">
                         </div>
                     </div>
-                    <div>
+                    <div class="block-only-discount">
                         <input type="checkbox" name="only-discount">
                         <label for="only-discount">Только товары со скдками</label>
                     </div>
@@ -62,14 +62,19 @@
             <section id="catalog">
                 <div id="catalog-top">
                     <h1>Каталог</h1>
-                    <select name="sorting-catalog" id="sorting-catalog"></select>
+                    <select name="sorting-catalog" id="sorting-catalog">
+                        <option value="">По убыванию рейтинга</option>
+                        <option value="">По возрастанию рейтинга</option>
+                        <option value="">По убыванию цены</option>
+                        <option value="">По возрастанию цены</option>
+                    </select>
                 </div>
                 <div id="goods">
                 <!-- Блоки с товарами -->
                 </div>
-                <div id="load-page">
+                <!-- <div id="load-page">
                     <button>Загрузить ещё</button>
-                </div>
+                </div> -->
             </section>
         </div>
     </main>
