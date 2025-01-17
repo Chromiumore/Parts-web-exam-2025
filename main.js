@@ -83,7 +83,7 @@ function calculatePrice() {
 }
 
 function updateMessage() {
-    messagePanel.querySelector('.message').textContent = calculatePrice();
+    messagePanel.querySelector('.message').textContent = `Товар успешно добавлен в корзину. Общая сумма: ${calculatePrice()}`;
     document.querySelector('main').insertBefore(messagePanel, document.querySelector('main').firstChild);
 }
 

@@ -126,10 +126,7 @@ function placeCards() {
 
 function resetForm() {
     localStorage.clear();
-    let cards = document.getElementsByClassName('good-card');
-    for (let el of cards) {
-        el.remove();
-    }
+    document.querySelectorAll('.good-card').forEach(el => el.remove());
 }
 
 async function submitForm() {
