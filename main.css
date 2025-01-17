@@ -131,6 +131,7 @@ aside button {
     display: flex;
     flex-direction: column;
     margin: 0 20px;
+    padding: 0 40px;
 }
 
 #catalog-top {
@@ -146,9 +147,10 @@ aside button {
 
 #goods {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 100px;
     justify-items: stretch;
+
 }
 
 .good-card {
@@ -158,14 +160,18 @@ aside button {
     cursor: pointer;
     filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
     background-color: white;
+    padding: 30px 40px;
 }
 
-.good-image {
-    width: 100%;
+.name {
+    flex-grow: 1;
+    margin-bottom: 0;
 }
 
-.good-image img {
-    height: 100%;
+.good-card img {
+    height: 300px;
+    width: 300px;
+    align-self: center;
 }
 
 .prices {
@@ -173,9 +179,21 @@ aside button {
     justify-content: space-around;
 }
 
+.old_price, .discount {
+    color: red;
+}
+
 footer {
     margin: 0;
     margin-top: auto;
     border: 1px black solid;
     text-align: center;
+}
+
+button {
+    background-color: lightslategrey;
+    color: white;
+    border: 0.5px black solid;
+    border-radius: 5px;
+    height: 35px;
 }

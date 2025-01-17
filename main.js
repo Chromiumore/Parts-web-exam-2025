@@ -54,8 +54,8 @@ function getPricesHTML(good) {
     if (discountPrice) {
         let discount = Math.round((good.discount_price / good.actual_price - 1) * 100);
         code = `
-                <p class="actual_price">${discountPrice}</p>
-                <p class="old_price">${actualPrice}</p>
+                <p class="actual_price">${discountPrice} ₽</p>
+                <p class="old_price"><s>${actualPrice} ₽</s></p>
                 <p class="discount">${discount}%</p>
                 `;
     } else {
@@ -98,7 +98,7 @@ function createCard(good) {
     goodCard.setAttribute('data-kind', good.category);
     goodCard.setAttribute('data-good', good.id);
     goodCard.innerHTML = `
-                    <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
+                    <img src='${good.image_url}' alt='${good.name}'>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>

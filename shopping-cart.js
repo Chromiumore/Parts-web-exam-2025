@@ -139,7 +139,7 @@ function createCard(good) {
     goodCard.setAttribute('data-kind', good.category);
     goodCard.setAttribute('data-good', good.id);
     goodCard.innerHTML = `
-                    <figure class='good-image'><img src='${good.image_url}' alt='${good.name}'></figure>
+                    <img src='${good.image_url}' alt='${good.name}'>
                     <p class="name">${good.name}</p>
                     <div class="rating">${getRatingText(good)}</div>
                     <div class="prices">${getPricesHTML(good)}</div>
