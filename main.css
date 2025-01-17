@@ -188,6 +188,9 @@ footer {
     margin-top: auto;
     border: 1px black solid;
     text-align: center;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
 }
 
 button {
@@ -196,4 +199,9 @@ button {
     border: 0.5px black solid;
     border-radius: 5px;
     height: 35px;
+}
+
+.delete-buttons {
+    display: flex;
+    justify-content: center;
 }

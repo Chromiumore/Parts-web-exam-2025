@@ -121,6 +121,7 @@ function showOrder(id) {
     closeWindow();
     let window = document.createElement('div');
     window.classList.add('window');
+    window.classList.add('show-window');
 
     let order = orders.find(order => order.id == id);
     let timeCreatedElements = (order['created_at'].split('T')[0]).split('-');
@@ -156,9 +157,10 @@ function showOrder(id) {
                                 <p>${getNamesText(order.good_ids)}</p>
                                 <p>${getFullCost(order.good_ids)} ₽</p>
                                 <p>${order.comment}</p>
+                                <button class="ok-button">Ок</button>
                             </div>
                         </section>
-                        <button class="ok-button">Ок</button>
+                        
                         `
     document.body.appendChild(window);
     document.querySelector('.close-button').onclick = () => (window.remove());
@@ -229,6 +231,7 @@ function editOrder(id) {
     closeWindow();
     let window = document.createElement('div');
     window.classList.add('window');
+    window.classList.add('edit-window');
 
     let order = orders.find(order => order.id == id);
     let timeCreatedElements = (order['created_at'].split('T')[0]).split('-');
@@ -269,10 +272,13 @@ function editOrder(id) {
                                 <p>${getNamesText(order.good_ids)}</p>
                                 <p>${getFullCost(order.good_ids)} ₽</p> 
                                 <input type="text" id="comment" name="comment">
+                                <div class="button-wrapper">
+                                    <button class="cancel-button">Отмена</button>
+                                    <button class="save-button">Сохранить</button>
+                                </div>
+                                
                             </div>
                         </section>
-                        <button class="cancel-button">Отмена</button>
-                        <button class="save-button">Сохранить</button>
                         `
     document.body.appendChild(window);
     document.querySelector('.close-button').onclick = () => (window.remove());
@@ -284,6 +290,7 @@ function deleteOrder(id) {
     closeWindow();
     let window = document.createElement('div');
     window.classList.add('window');
+    window.classList.add('delete-window');
 
     window.innerHTML = `
                         <section class="cover-section">
@@ -292,7 +299,7 @@ function deleteOrder(id) {
                         </section>
                         <section class="info-section">
                             <div class="delete-message">
-                            <p>Вы уверены, что хотите удалить заказ?</p>
+                                <p>Вы уверены, что хотите удалить заказ?</p>
                             </div>
                             <div class="delete-buttons">
                                 <button class="cancel-button">Нет</button>

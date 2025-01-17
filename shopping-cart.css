@@ -190,4 +190,7 @@ footer {
     margin-top: auto;
     border: 1px black solid;
     text-align: center;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
 }

@@ -15,7 +15,7 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
     border-bottom: 1px gray solid;
-    margin: 0 50px;
+    margin: 0px;
 }
 
 #logo-icon {
@@ -38,7 +38,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    margin: 0 50px;
+    margin: 0 0px;
+    padding: 10px 20px;
 }
 
 table {
@@ -98,6 +99,9 @@ footer {
     margin-top: auto;
     border: 1px black solid;
     text-align: center;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
 }
 
 .window {
@@ -107,7 +111,8 @@ footer {
     transform: translate(-50%, -50%);
     border: black 2px solid;
     background-color: white;
-    padding: 50px 200px;
+    padding: 0;
+    width: 600px;
     text-align: center; 
     display: flex;
     flex-direction: column;
@@ -116,19 +121,68 @@ footer {
 .cover-section {
     display: flex;
     justify-content: space-between;
+    border: 1px black solid;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.close-button {
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+}
+
+.close-button img {
+    height: 100%;
 }
 
 .info-section {
     display: flex;
+    justify-content: center;
+    gap: 40px;
 }
 
 .prop-side, .values-side {
     display: flex;
     flex-direction: column;
+    margin: 5px 20px;
 }
 
 .table-wrapper {
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+}
+
+.info-section button, .button-wrapper button {
+    background-color: lightslategrey;
+    color: white;
+    border: 0.5px black solid;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-window .info-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-message {
+    margin-bottom: 0;
+}
+
+.delete-buttons {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.delete-buttons button{
+    width: 100px;
 }
